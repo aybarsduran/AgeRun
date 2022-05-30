@@ -8,12 +8,14 @@ public class LevelGenerator : MonoBehaviour
 
     public int zPos=60;
     public bool creatingSection = false;
+
+    public GameManager gameManager;
    
 
     // Update is called once per frame
     void Update()
     {
-        if (!creatingSection)
+        if (!creatingSection && gameManager.state==GameManager.GameState.Running)
         {
             creatingSection=true;
             StartCoroutine(CreateSection());

@@ -32,7 +32,7 @@ public class SwerveMovement : MonoBehaviour
     {
         if (manager.state == GameManager.GameState.Running)
         {
-            anim.SetBool("isRunning", true);
+            //anim.SetBool("isRunning", true);
             swerveAmount = swerweInput.MoveFactorX * swerveSpeed * Time.deltaTime;
             swerveAmount = Mathf.Clamp(swerveAmount, -maxSwerveAmount, maxSwerveAmount);
 

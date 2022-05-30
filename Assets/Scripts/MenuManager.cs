@@ -1,18 +1,36 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MenuManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    
+    public GameObject menuTapToPlayElement;
+
+
+    void Awake()
     {
-        
+        GameManager.OnGameStateChanged += GameManagerOnGameStateChanged; //subscribe
     }
 
-    // Update is called once per frame
-    void Update()
+   
+
+    void OnDestroy()
     {
-        
+        GameManager.OnGameStateChanged -= GameManagerOnGameStateChanged;//unsubscribe
+    }
+    private void GameManagerOnGameStateChanged(GameManager.GameState state)
+    {
+        menuTapToPlayElement.SetActive(state == GameManager.GameState.Pre);
+    }
+    private void Start()
+    {
+       
+    }
+
+    public void TapToPlayPressed()
+    {
+        GameManager.Instance.UpdateGameState(GameManager.GameState.Running);
     }
 }
