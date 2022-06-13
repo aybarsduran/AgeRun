@@ -13,11 +13,13 @@ public class SwerweInput : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             lastFingerPositionX =Input.mousePosition.x;
+            print(lastFingerPositionX);
         }
         else if (Input.GetMouseButton(0))
         {
             moveFactorX = Input.mousePosition.x - lastFingerPositionX;
             lastFingerPositionX =Input.mousePosition.x;
+            print(lastFingerPositionX);
         }
         else if (Input.GetMouseButtonUp(0))
         {

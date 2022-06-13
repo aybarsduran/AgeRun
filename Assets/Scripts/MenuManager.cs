@@ -2,11 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class MenuManager : MonoBehaviour
 {
     
     public GameObject menuTapToPlayElement;
+   
+   
 
 
     void Awake()
@@ -23,6 +26,7 @@ public class MenuManager : MonoBehaviour
     private void GameManagerOnGameStateChanged(GameManager.GameState state)
     {
         menuTapToPlayElement.SetActive(state == GameManager.GameState.Pre);
+       
     }
     private void Start()
     {
@@ -32,5 +36,7 @@ public class MenuManager : MonoBehaviour
     public void TapToPlayPressed()
     {
         GameManager.Instance.UpdateGameState(GameManager.GameState.Running);
+       
+        
     }
 }

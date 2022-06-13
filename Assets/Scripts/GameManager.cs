@@ -2,11 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-   public enum GameState
+    public Animator Player;
+
+    public GameObject starterEndSection;
+
+
+    public enum GameState
     {
         Pre,
         Running,
@@ -42,6 +48,7 @@ public class GameManager : MonoBehaviour
                 HandleRunningState();
                 break;
             case GameState.End:
+                HandleEndState();
                 break;
 
             default:
@@ -51,13 +58,23 @@ public class GameManager : MonoBehaviour
         OnGameStateChanged?.Invoke(newState);//event
     }
 
+    private void HandleEndState()
+    {
+        starterEndSection.SetActive(false);
+    }
+
     private void HandleRunningState()
     {
-        
+
+        Player.SetBool("isWalking", true);
     }
 
     private void HandlePreState()
     {
         
+    }
+    private void Update()
+    {
+       
     }
 }

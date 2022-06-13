@@ -11,12 +11,16 @@ public class WearableManager : MonoBehaviour
     public GameObject[] LowerBody;
     public GameObject[] Boots;
 
+    Animator anim;
+
+    public ParticleSystem gateParticle;
     
 
    
     void Start()
     {
-       
+      
+       anim=GetComponent<Animator>();
 
         foreach (var hats in Hats)
         {
@@ -43,6 +47,8 @@ public class WearableManager : MonoBehaviour
     {
         if (other.CompareTag("Gate"))
         {
+            anim.SetTrigger("GatePassed");
+            gateParticle.Play();
             if(other.GetComponent<Gate>() != null)
             { 
                 gateCache= other.GetComponent<Gate>();
@@ -65,7 +71,7 @@ public class WearableManager : MonoBehaviour
                     SwitchLower(gateCache.returnLowerTag());
                 }
 
-                if (gateCache.type == Gate.GateType.UpperBody)
+                if (gateCache.type == Gate.GateType.Boots)
                 {
                     SwitchBoot(gateCache.returnBootTag());
                 }

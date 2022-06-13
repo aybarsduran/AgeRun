@@ -6,17 +6,29 @@ TagManager:
   tags:
   - Section
   - Gate
-  - Armor
   - BaseCloth
-  - RomenArmor
-  - hat1
-  - hat2
-  - upper1
-  - upper2
-  - lower1
-  - RomenBottom
-  - boot1
-  - boot2
+  - DiscoPants
+  - DiscoShirt
+  - DiscoShoe
+  - DiscoHat
+  - DiscoHead
+  - CowboyHat
+  - CowboyShirt
+  - CowboyPants
+  - CowboyShoe
+  - RomenHat
+  - RomenShirt
+  - RomenPants
+  - RomenShoe
+  - DiscoSunglass
+  - EnglandShirt
+  - EnglandHat
+  - EnglandShoe
+  - EnglandPant
+  - SuitShirt
+  - SuitPant
+  - SuitShoe
+  - SuitSunglass
   layers:
   - Default
   - TransparentFX
