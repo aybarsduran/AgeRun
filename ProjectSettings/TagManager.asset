@@ -29,6 +29,9 @@ TagManager:
   - SuitPant
   - SuitShoe
   - SuitSunglass
+  - Obstacle
+  - BaseHat
+  - BasePants
   layers:
   - Default
   - TransparentFX

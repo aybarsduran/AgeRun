@@ -14,6 +14,8 @@ public class WearableManager : MonoBehaviour
     Animator anim;
 
     public ParticleSystem gateParticle;
+
+    public BarContoller barController;
     
 
    
@@ -43,12 +45,20 @@ public class WearableManager : MonoBehaviour
         LowerBody[0].SetActive(true);
     }
 
+    private void Update()
+    {
+      
+    }
+    
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Gate"))
         {
             anim.SetTrigger("GatePassed");
             gateParticle.Play();
+            //barController.ChangeColor();
+
             if(other.GetComponent<Gate>() != null)
             { 
                 gateCache= other.GetComponent<Gate>();
@@ -141,6 +151,159 @@ public class WearableManager : MonoBehaviour
             if (boots.tag != tag)
             {
                 boots.SetActive(false);
+            }
+        }
+    }
+    public string ReturnActiveHat()
+    {
+        foreach (var hats in Hats)
+        {
+            if (hats.activeInHierarchy)
+            {
+                return hats.tag;
+            }
+        }
+        return null;
+    }
+    public string ReturnActiveUpper()
+    {
+        foreach (var upper in UpperBody)
+        {
+            if (upper.activeInHierarchy)
+            {
+                return upper.tag;
+            }
+        }
+        return null;
+    }
+    public string ReturnActiveLower()
+    {
+        foreach (var lower in LowerBody)
+        {
+            if (lower.activeInHierarchy)
+            {
+                return lower.tag;
+            }
+        }
+        return null;
+    }
+    public string ReturnActiveBoot()
+    {
+        foreach (var boot in Boots)
+        {
+            if (boot.activeInHierarchy)
+            {
+                return boot.tag;
+            }
+        }
+        return null;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Obstacle"))
+        {
+            if (ReturnActiveHat() != null)
+            {
+                if (ReturnActiveHat() == "RomenHat")
+                {
+                    SwitchHat("BaseHat");
+
+                }
+                if (ReturnActiveHat() == "EnglandHat")
+                {
+                    SwitchHat("RomenHat");
+
+                }
+                if (ReturnActiveHat() == "CowboyHat")
+                {
+                    SwitchHat("EnglandHat");
+
+                }
+                if (ReturnActiveHat() == "DiscoHat")
+                {
+                    SwitchHat("CowboyHat");
+
+                }
+                if (ReturnActiveHat() == "SuitSunglass")
+                {
+                    SwitchHat("DiscoHat");
+
+                }
+            }
+
+            if(ReturnActiveHat() =="BaseHat")
+            {
+                if (ReturnActiveUpper() == "RomenShirt")
+                {
+                    UpperBody[0].SetActive(false);
+                }
+                if (ReturnActiveUpper() == "EnglandShirt")
+                {
+                    SwitchUpper("RomenShirt");
+                }
+                if (ReturnActiveUpper() == "CowboyShirt")
+                {
+                    SwitchUpper("EnglandShirt");
+                }
+                if (ReturnActiveUpper() == "DiscoShirt")
+                {
+                    SwitchUpper("CowboyShirt");
+                }
+                if (ReturnActiveUpper() == "SuitShirt")
+                {
+                    SwitchUpper("DiscoShirt");
+                }
+
+
+            }
+            if(ReturnActiveHat()=="BaseHat" && ReturnActiveUpper() == null)
+            {
+                if (ReturnActiveLower() == "RomenPants")
+                {
+                    SwitchLower("BasePants");
+                }
+                if (ReturnActiveLower() == "EnglandPant")
+                {
+                    SwitchLower("RomenPants");
+                }
+                if (ReturnActiveLower() == "CowboyPants")
+                {
+                    SwitchLower("EnglandPant");
+                }
+                if (ReturnActiveLower() == "DiscoPants")
+                {
+                    SwitchLower("CowboyPants");
+                }
+                if (ReturnActiveLower() == "SuitPant")
+                {
+                    SwitchLower("DiscoPants");
+                }
+            }
+            if(ReturnActiveUpper()==null && ReturnActiveLower() =="BasePants" && ReturnActiveHat() =="BaseHat")
+            {
+                
+                if (ReturnActiveBoot() == "RomenShoe")
+                {
+                    Boots[0].SetActive(false);
+                }
+                if (ReturnActiveBoot() == "EnglandShoe")
+                {
+                    SwitchBoot("RomenShoe");
+                }
+                if (ReturnActiveBoot() == "CowboyShoe")
+                {
+                    SwitchBoot("EnglandShoe");
+                }
+                if (ReturnActiveBoot() == "DiscoShoe")
+                {
+                    SwitchBoot("CowboyShoe");
+                }
+                if (ReturnActiveBoot() == "SuitShoe")
+                {
+                    SwitchBoot("DiscoShoe");
+                }
+
             }
         }
     }
