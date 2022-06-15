@@ -75,7 +75,7 @@ public class BarContoller : MonoBehaviour
         activeDiscoCount--;
         activeSuitCount++;
     }
-    public void CompareClothes(string hatTag, string upperTag, string lowerTag, string bootTag)
+    /*public void CompareClothes(string hatTag, string upperTag, string lowerTag, string bootTag)
     {
 
       
@@ -171,5 +171,5 @@ public class BarContoller : MonoBehaviour
 
         }
 
-    }
+    }*/
 }

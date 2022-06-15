@@ -92,6 +92,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3648273196996442068}
     m_Modifications:
+    - target: {fileID: 1199094924194089438, guid: 14f8a9d622af51148bf7fd10a0438827, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 72a30af4f4c9f5c418122e6cfa5a589a, type: 3}
+    - target: {fileID: 1199094924194089438, guid: 14f8a9d622af51148bf7fd10a0438827, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1361479463841770714, guid: 14f8a9d622af51148bf7fd10a0438827, type: 3}
       propertyPath: m_IsActive
       value: 0

@@ -16,11 +16,15 @@ public class WearableManager : MonoBehaviour
     public ParticleSystem gateParticle;
 
     public BarContoller barController;
+
+    public SwerveMovement swerveMovement;
+   
     
 
    
     void Start()
     {
+       
       
        anim=GetComponent<Animator>();
 
@@ -203,6 +207,8 @@ public class WearableManager : MonoBehaviour
     {
         if (collision.collider.CompareTag("Obstacle"))
         {
+            swerveMovement.KnockBack();
+
             if (ReturnActiveHat() != null)
             {
                 if (ReturnActiveHat() == "RomenHat")

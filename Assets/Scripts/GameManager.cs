@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject starterEndSection;
 
+    public ParticleSystem wind;
 
     public enum GameState
     {
@@ -61,12 +62,14 @@ public class GameManager : MonoBehaviour
     private void HandleEndState()
     {
         starterEndSection.SetActive(false);
+        wind.Pause();
     }
 
     private void HandleRunningState()
     {
 
         Player.SetBool("isWalking", true);
+        wind.Play();
     }
 
     private void HandlePreState()

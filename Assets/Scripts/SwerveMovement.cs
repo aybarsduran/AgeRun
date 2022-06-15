@@ -15,12 +15,19 @@ public class SwerveMovement : MonoBehaviour
     public float moveSpeed = 5f;
 
     public GameManager manager;
+    Rigidbody rb;
+
+    public float knockBackForce;
+    public float knockBackTime;
+    private float knockBackCounter;
+
+    public ParticleSystem obstacleParticle;
 
     void Start()
     {
         swerweInput = GetComponent<SwerweInput>();
         anim = GetComponent<Animator>();
-        
+        rb = GetComponent<Rigidbody>();  
     }
 
     void Update()
@@ -34,15 +41,30 @@ public class SwerveMovement : MonoBehaviour
     {
         if (manager.state == GameManager.GameState.Running)
         {
-            
-            swerveAmount = swerweInput.MoveFactorX * swerveSpeed * Time.deltaTime;
-            swerveAmount = Mathf.Clamp(swerveAmount, -maxSwerveAmount, maxSwerveAmount);
+            if (knockBackCounter <= 0)
+            {
+                anim.SetBool("isFlying", false) ;
+                swerveAmount = swerweInput.MoveFactorX * swerveSpeed * Time.deltaTime;
+                swerveAmount = Mathf.Clamp(swerveAmount, -maxSwerveAmount, maxSwerveAmount);
 
 
-            transform.position += new Vector3(swerveAmount, 0, moveSpeed * Time.deltaTime);
-            transform.position = new Vector3(Mathf.Clamp(transform.position.x, -edgeDistance, edgeDistance),
-                transform.position.y, transform.position.z);
+                transform.position += new Vector3(swerveAmount, 0, moveSpeed * Time.deltaTime);
+                transform.position = new Vector3(Mathf.Clamp(transform.position.x, -edgeDistance, edgeDistance),
+                    transform.position.y, transform.position.z);
+            }
+            else
+            {
+                knockBackCounter -= Time.deltaTime;
+            }
         }
 
+    }
+
+    public void KnockBack()
+    {
+        obstacleParticle.Play();
+        knockBackCounter = knockBackTime;
+        rb.AddForce(new Vector3(0, 0.5f, -1) * knockBackForce);
+        anim.SetBool("isFlying", true);
     }
 }

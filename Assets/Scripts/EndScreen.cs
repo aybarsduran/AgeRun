@@ -8,24 +8,39 @@ public class EndScreen : MonoBehaviour
 
     public Transform endPosition;
     public Transform Player;
-    public Animator PlayerAnim;
+    
     public WearableManager wManager;
 
+    public Animator PlayerAnim;
     public Animator firstJuriAnim;
     public Animator secondJuriAnim;
     public Animator thirdJuriAnim;
+    public Animator podiumAnim;
 
     float score;
+    int firstScore;
+    int secondScore;
+    int thirdScore;
    
     public float distance;
 
-    public TextMeshPro scoreElement;
+    public ParticleSystem confetiParticle;
+    public ParticleSystem firework1;
+    public ParticleSystem firework2;
+
+    public TextMeshPro firstScoreElement;
+    public TextMeshPro secondScoreElement;
+    public TextMeshPro thirdScoreElement;
     void Start()
     {
         score = 0;
+        firstScore = 0;
+        secondScore = 0;
+        thirdScore = 0;
         firstJuriAnim.enabled = false;
         secondJuriAnim.enabled = false;
         thirdJuriAnim.enabled = false;
+        podiumAnim.enabled = false;
         
     }
 
@@ -46,7 +61,7 @@ public class EndScreen : MonoBehaviour
             firstJuriAnim.enabled = true;
             secondJuriAnim.enabled = true;
             thirdJuriAnim.enabled = true;
-
+            podiumAnim.enabled = true;
 
         }
     }
@@ -55,9 +70,43 @@ public class EndScreen : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             GameManager.Instance.UpdateGameState(GameManager.GameState.End);
-
+            confetiParticle.Play();
+            firework1.Play();
+            firework2.Play();
             print(CalculateScores(wManager.ReturnActiveHat(), wManager.ReturnActiveUpper(), wManager.ReturnActiveLower(), wManager.ReturnActiveBoot()));
-            scoreElement.text = score.ToString();
+            if (score >= 8)
+            {
+                firstScore = Random.Range(8, 11);
+                secondScore = Random.Range(8, 11);
+                thirdScore = Random.Range(8, 11);
+            }
+            if(score >= 6 && score < 8)
+            {
+                firstScore = Random.Range(6, 9);
+                secondScore= Random.Range(6, 9);
+                thirdScore= Random.Range(6, 9);
+            }
+            if(score>=4 && score < 6)
+            {
+                firstScore = Random.Range(4, 7);
+                secondScore = Random.Range(4, 7);
+                thirdScore = Random.Range(4, 7);
+            }
+            if(score>=2 && score < 4)
+            {
+                firstScore = Random.Range(2, 5);
+                secondScore = Random.Range(2, 5);
+                thirdScore = Random.Range(2, 5);
+            }
+            if (score < 2)
+            {
+                firstScore = Random.Range(0, 3);
+                secondScore = Random.Range(0, 3);
+                thirdScore = Random.Range(0, 3);
+            }
+            firstScoreElement.text = firstScore.ToString();
+            secondScoreElement.text = secondScore.ToString();
+            thirdScoreElement.text = thirdScore.ToString();
         }
     }
 
