@@ -39,7 +39,7 @@ public class CameraFollow : MonoBehaviour
 
 
 
-    void Update()
+    void FixedUpdate()
 	{
 
 		if (manager.state == GameManager.GameState.Running)

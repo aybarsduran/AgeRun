@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using MoreMountains.NiceVibrations;
 public class WearableManager : MonoBehaviour
 {
     private Gate gateCache;
@@ -11,11 +11,19 @@ public class WearableManager : MonoBehaviour
     public GameObject[] LowerBody;
     public GameObject[] Boots;
 
+   
+
+    public BarContoller barContoller;
+
     Animator anim;
 
     public ParticleSystem gateParticle;
+    public ParticleSystem hatParticle;
+    public ParticleSystem chestParticle;
+    public ParticleSystem lowerParticle;
+    public ParticleSystem bootParticle;
 
-    public BarContoller barController;
+ 
 
     public SwerveMovement swerveMovement;
    
@@ -61,36 +69,52 @@ public class WearableManager : MonoBehaviour
         {
             anim.SetTrigger("GatePassed");
             gateParticle.Play();
-            //barController.ChangeColor();
+            
+           
 
             if(other.GetComponent<Gate>() != null)
             { 
                 gateCache= other.GetComponent<Gate>();
-            
-            
+               
+               
+                gateCache.gateEffect.SetActive(false);
+
+
+
                 if (gateCache.type == Gate.GateType.Hats)
                 {
-                
+                    hatParticle.Play();
                     SwitchHat(gateCache.returnHatTag());
+                    barContoller.UITextDetection(gateCache.returnHatTag());
+                    
                 }
 
 
                 if (gateCache.type == Gate.GateType.UpperBody)
                 {
+                    chestParticle.Play();
                     SwitchUpper(gateCache.returnUpperTag());
+                    barContoller.UITextDetection(gateCache.returnUpperTag());
                 }
 
                 if (gateCache.type == Gate.GateType.LowerBody)
                 {
+                    lowerParticle.Play();
                     SwitchLower(gateCache.returnLowerTag());
+                    barContoller.UITextDetection(gateCache.returnLowerTag());
+
                 }
 
                 if (gateCache.type == Gate.GateType.Boots)
                 {
+                    bootParticle.Play();
                     SwitchBoot(gateCache.returnBootTag());
+                    barContoller.UITextDetection(gateCache.returnBootTag());
                 }
-
+               
             }
+            barContoller.UpdateProgressFill(barContoller.CalculateValue(ReturnActiveHat(), ReturnActiveUpper(), ReturnActiveLower(), ReturnActiveBoot()));
+            print(barContoller.CalculateValue(ReturnActiveHat(), ReturnActiveUpper(), ReturnActiveLower(), ReturnActiveBoot()));
 
 
         }
@@ -208,32 +232,39 @@ public class WearableManager : MonoBehaviour
         if (collision.collider.CompareTag("Obstacle"))
         {
             swerveMovement.KnockBack();
+            MMVibrationManager.Haptic(HapticTypes.Warning);
 
-            if (ReturnActiveHat() != null)
+           /* if (ReturnActiveHat() != null)
             {
                 if (ReturnActiveHat() == "RomenHat")
                 {
                     SwitchHat("BaseHat");
+                    barContoller.UITextDetection("BaseHat");
+                    barContoller.UpdateProgressFill(5);
 
                 }
                 if (ReturnActiveHat() == "EnglandHat")
                 {
                     SwitchHat("RomenHat");
+                    barContoller.UITextDetection("RomenHat");
 
                 }
                 if (ReturnActiveHat() == "CowboyHat")
                 {
                     SwitchHat("EnglandHat");
+                    barContoller.UITextDetection("EnglandHat");
 
                 }
                 if (ReturnActiveHat() == "DiscoHat")
                 {
                     SwitchHat("CowboyHat");
+                    barContoller.UITextDetection("CowboyHat");
 
                 }
                 if (ReturnActiveHat() == "SuitSunglass")
                 {
                     SwitchHat("DiscoHat");
+                    barContoller.UITextDetection("DiscoHat");
 
                 }
             }
@@ -243,22 +274,27 @@ public class WearableManager : MonoBehaviour
                 if (ReturnActiveUpper() == "RomenShirt")
                 {
                     UpperBody[0].SetActive(false);
+                    barContoller.UITextDetection("BaseHat");
                 }
                 if (ReturnActiveUpper() == "EnglandShirt")
                 {
                     SwitchUpper("RomenShirt");
+                    barContoller.UITextDetection("RomenShirt");
                 }
                 if (ReturnActiveUpper() == "CowboyShirt")
                 {
                     SwitchUpper("EnglandShirt");
+                    barContoller.UITextDetection("EnglandShirt");
                 }
                 if (ReturnActiveUpper() == "DiscoShirt")
                 {
                     SwitchUpper("CowboyShirt");
+                    barContoller.UITextDetection("CowboyShirt");
                 }
                 if (ReturnActiveUpper() == "SuitShirt")
                 {
                     SwitchUpper("DiscoShirt");
+                    barContoller.UITextDetection("DiscoShirt");
                 }
 
 
@@ -268,22 +304,27 @@ public class WearableManager : MonoBehaviour
                 if (ReturnActiveLower() == "RomenPants")
                 {
                     SwitchLower("BasePants");
+                    barContoller.UITextDetection("BasePants");
                 }
                 if (ReturnActiveLower() == "EnglandPant")
                 {
                     SwitchLower("RomenPants");
+                    barContoller.UITextDetection("RomenPants");
                 }
                 if (ReturnActiveLower() == "CowboyPants")
                 {
                     SwitchLower("EnglandPant");
+                    barContoller.UITextDetection("EnglandPant");
                 }
                 if (ReturnActiveLower() == "DiscoPants")
                 {
                     SwitchLower("CowboyPants");
+                    barContoller.UITextDetection("CowboyPants");
                 }
                 if (ReturnActiveLower() == "SuitPant")
                 {
                     SwitchLower("DiscoPants");
+                    barContoller.UITextDetection("DiscoPants");
                 }
             }
             if(ReturnActiveUpper()==null && ReturnActiveLower() =="BasePants" && ReturnActiveHat() =="BaseHat")
@@ -292,25 +333,33 @@ public class WearableManager : MonoBehaviour
                 if (ReturnActiveBoot() == "RomenShoe")
                 {
                     Boots[0].SetActive(false);
+                    barContoller.UITextDetection("BaseHat");
                 }
                 if (ReturnActiveBoot() == "EnglandShoe")
                 {
                     SwitchBoot("RomenShoe");
+                    barContoller.UITextDetection("RomenShoe");
                 }
                 if (ReturnActiveBoot() == "CowboyShoe")
                 {
                     SwitchBoot("EnglandShoe");
+                    barContoller.UITextDetection("EnglandShoe");
                 }
                 if (ReturnActiveBoot() == "DiscoShoe")
                 {
                     SwitchBoot("CowboyShoe");
+                    barContoller.UITextDetection("CowboyShoe");
                 }
                 if (ReturnActiveBoot() == "SuitShoe")
                 {
                     SwitchBoot("DiscoShoe");
+                    barContoller.UITextDetection("DiscoShoe");
                 }
 
             }
+            print(-1 * endscreen.CalculateScores(ReturnActiveHat(), ReturnActiveUpper(), ReturnActiveLower(), ReturnActiveBoot()));
+            barContoller.UpdateProgressFill(-1*endscreen.CalculateScores(ReturnActiveHat(), ReturnActiveUpper(), ReturnActiveLower(), ReturnActiveBoot()));
+           */
         }
     }
 

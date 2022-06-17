@@ -20,6 +20,10 @@ public class Gate : MonoBehaviour
     public GameObject[] lowerImages;
     public GameObject[] bootImages;
 
+    
+    
+    public GameObject gateEffect;
+
 
 
     int random;
@@ -41,7 +45,7 @@ public class Gate : MonoBehaviour
 
             random = Random.Range(0, 5);
             hatImages[random].SetActive(true);
-
+           
         }
         if (type == GateType.UpperBody)
         {
@@ -51,7 +55,7 @@ public class Gate : MonoBehaviour
             }
             random2 = Random.Range(0, 5);
             upperImages[random2].SetActive(true);
-           
+            
         }
        
        
@@ -64,6 +68,7 @@ public class Gate : MonoBehaviour
 
             random3 = Random.Range(0, 5);
             lowerImages[random3].SetActive(true);
+            
 
         }
         if (type == GateType.Boots)
@@ -74,6 +79,7 @@ public class Gate : MonoBehaviour
             }
             random4 = Random.Range(0, 5);
             bootImages[random4].SetActive(true);
+           
 
         }
 

@@ -19,7 +19,7 @@ Material:
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: 2871
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -85,7 +85,7 @@ Material:
     - _Metallicness: 0
     - _NORMAL_MAP: 1
     - _NormalStrength: 0.15
-    - _NormalTiling: 0.79999995
+    - _NormalTiling: 4
     - _Pixelate: 0
     - _RT_REFRACTION: 0
     - _ReflectionFresnel: 2

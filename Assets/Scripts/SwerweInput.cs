@@ -8,7 +8,7 @@ public class SwerweInput : MonoBehaviour
     private float moveFactorX;
     public float MoveFactorX => moveFactorX;
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (Input.GetMouseButtonDown(0))
         {

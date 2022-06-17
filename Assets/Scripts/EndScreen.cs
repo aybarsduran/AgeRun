@@ -12,10 +12,17 @@ public class EndScreen : MonoBehaviour
     public WearableManager wManager;
 
     public Animator PlayerAnim;
+    public Animator podiumAnim;
     public Animator firstJuriAnim;
     public Animator secondJuriAnim;
     public Animator thirdJuriAnim;
-    public Animator podiumAnim;
+
+
+
+    public ParticleSystem confetiParticle;
+    public ParticleSystem firework1;
+    public ParticleSystem firework2;
+
 
     float score;
     int firstScore;
@@ -24,9 +31,6 @@ public class EndScreen : MonoBehaviour
    
     public float distance;
 
-    public ParticleSystem confetiParticle;
-    public ParticleSystem firework1;
-    public ParticleSystem firework2;
 
     public TextMeshPro firstScoreElement;
     public TextMeshPro secondScoreElement;
@@ -37,11 +41,12 @@ public class EndScreen : MonoBehaviour
         firstScore = 0;
         secondScore = 0;
         thirdScore = 0;
+
+        podiumAnim.enabled = false;
         firstJuriAnim.enabled = false;
         secondJuriAnim.enabled = false;
         thirdJuriAnim.enabled = false;
-        podiumAnim.enabled = false;
-        
+
     }
 
     // Update is called once per frame
@@ -53,15 +58,18 @@ public class EndScreen : MonoBehaviour
         if (distance < 10f && distance >= 0.3f)
         {
           
-           Player.transform.position = Vector3.MoveTowards(Player.transform.position, endPosition.transform.position, 2 * Time.deltaTime);
+           Player.transform.position = Vector3.MoveTowards(Player.transform.position, endPosition.transform.position, 4 * Time.deltaTime);
         }
         if (distance < 0.3f) {
             PlayerAnim.SetBool("EndScreenPose",true);
-
+           
+            podiumAnim.enabled = true;
             firstJuriAnim.enabled = true;
             secondJuriAnim.enabled = true;
             thirdJuriAnim.enabled = true;
-            podiumAnim.enabled = true;
+
+
+          
 
         }
     }
@@ -73,6 +81,7 @@ public class EndScreen : MonoBehaviour
             confetiParticle.Play();
             firework1.Play();
             firework2.Play();
+
             print(CalculateScores(wManager.ReturnActiveHat(), wManager.ReturnActiveUpper(), wManager.ReturnActiveLower(), wManager.ReturnActiveBoot()));
             if (score >= 8)
             {

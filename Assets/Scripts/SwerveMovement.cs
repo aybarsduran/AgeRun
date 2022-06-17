@@ -30,7 +30,7 @@ public class SwerveMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();  
     }
 
-    void Update()
+    void FixedUpdate()
     {
         Run();
         
@@ -43,18 +43,25 @@ public class SwerveMovement : MonoBehaviour
         {
             if (knockBackCounter <= 0)
             {
-                anim.SetBool("isFlying", false) ;
-                swerveAmount = swerweInput.MoveFactorX * swerveSpeed * Time.deltaTime;
+                
+                swerveAmount = swerweInput.MoveFactorX * swerveSpeed * Time.fixedDeltaTime;
                 swerveAmount = Mathf.Clamp(swerveAmount, -maxSwerveAmount, maxSwerveAmount);
+  
+              
 
-
-                transform.position += new Vector3(swerveAmount, 0, moveSpeed * Time.deltaTime);
+                transform.position += new Vector3(swerveAmount, 0, moveSpeed * Time.fixedDeltaTime);
                 transform.position = new Vector3(Mathf.Clamp(transform.position.x, -edgeDistance, edgeDistance),
                     transform.position.y, transform.position.z);
+              
+               
             }
             else
             {
-                knockBackCounter -= Time.deltaTime;
+                knockBackCounter -= Time.fixedDeltaTime;
+               // Quaternion rotation = new Quaternion();
+               // rotation = Quaternion.AngleAxis(60, Vector3.up);
+
+               // transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 2 * Time.fixedDeltaTime);
             }
         }
 
@@ -64,7 +71,8 @@ public class SwerveMovement : MonoBehaviour
     {
         obstacleParticle.Play();
         knockBackCounter = knockBackTime;
-        rb.AddForce(new Vector3(0, 0.5f, -1) * knockBackForce);
-        anim.SetBool("isFlying", true);
+        rb.AddForce(new Vector3(0, 0, -1) * knockBackForce);
+        anim.SetTrigger("Idle");
+        
     }
 }

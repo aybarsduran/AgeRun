@@ -2,174 +2,184 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class BarContoller : MonoBehaviour
 {
-    public Image image;
+    public Image fillImage;
+    public TextMeshProUGUI text;
 
-    int activeRomenCount;
-    int activeEnglandCount;
-    int activeCowboyCount;
-    int activeDiscoCount;
-    int activeSuitCount;
+    public Animator textAnim;
+   
 
-    int score;
-    
+
+   
+    float hatValue;
+    float chestValue;
+    float lowerValue;
+    float bootValue;
     private void Start()
     {
-        image = GetComponent<Image>();
 
-        activeRomenCount = 0;
-        activeEnglandCount = 0;
-        activeCowboyCount = 0;
-        activeDiscoCount = 0;
-        activeSuitCount = 0;
-        score = 0;
+        float hatValue = 0;
+        float chestValue = 0;
+        float lowerValue = 0;
+        float bootValue = 0;
+
+        text.text = "Stone Age";
+        UpdateProgressFill(0);
+        
         
     }
-  /* public void ChangeColor() 
+    private void Update()
     {
+       
+    }
+    public void UITextDetection(string tag)
+    {
+        if(tag== "BaseHat" || tag=="BasePants")
+        {
+            SetUIText("Stone Age");
+        }
+        //Rome
+        if (tag == "RomenHat" || tag == "RomenShirt" || tag == "RomenPants" || tag == "RomenShoe")
+        {
+            SetUIText("Roman Age");
+        }
+       
+        //England
+        if (tag == "EnglandHat" || tag == "EnglandShirt" || tag == "EnglandPant" || tag == "EnglandShoe" )
+        {
+            SetUIText("1700's");
+        }
+        //Cowboy
+        if (tag == "CowboyHat" || tag == "CowboyShirt" || tag == "CowboyPants" || tag == "CowboyShoe")
+        {
+            SetUIText("1800's");
+        }
+        // Disco
+        if (tag == "DiscoHat" || tag == "DiscoShirt" || tag == "DiscoPants" || tag == "DiscoShoe")
+        {
+            SetUIText("70's");
+        }
+        //Suit
+        if (tag == "SuitSunglass" || tag == "SuitShirt" || tag == "SuitPant" || tag == "SuitShoe")
+        {
+            SetUIText("2020's");
+        }
+    }
+    public void SetUIText(string agetext)
+    {
+        textAnim.SetTrigger("Fade");
+        text.text = agetext;
         
-        image.color = Color.Lerp(image.color, Color.green, 0.1f);
-        //image.color=Color.Lerp(image.color, Color.white, 0.5f);
-    }*/
-    // ne yapýcam ? = mesela o an aktif romalý sayýsýný bulucam
 
-    public void IncreaseActiveRomenCount()
-    {
-        activeRomenCount++;
-        activeCowboyCount--;
-        activeEnglandCount--;
-        activeDiscoCount--;
-        activeSuitCount--;
+
     }
-    public void IncreaseActiveEnglandCount()
+    public void UpdateProgressFill(float value)
     {
-        activeRomenCount--;
-        activeCowboyCount--;
-        activeEnglandCount++;
-        activeDiscoCount--;
-        activeSuitCount--;
+        fillImage.fillAmount = value/100;
     }
-    public void IncreaseActiveCowboyCount()
+    //suitler 
+    public float CalculateValue(string hatTag, string upperTag, string lowerTag, string bootTag)
     {
-        activeRomenCount--;
-        activeCowboyCount++;
-        activeEnglandCount--;
-        activeDiscoCount--;
-        activeSuitCount--;
-    }
-    public void IncreaseActiveDiscoCount()
-    {
-        activeRomenCount--;
-        activeCowboyCount--;
-        activeEnglandCount--;
-        activeDiscoCount++;
-        activeSuitCount--;
-    }
-    public void IncreaseActiveSuitCount()
-    {
-        activeRomenCount--;
-        activeCowboyCount--;
-        activeEnglandCount--;
-        activeDiscoCount--;
-        activeSuitCount++;
-    }
-    /*public void CompareClothes(string hatTag, string upperTag, string lowerTag, string bootTag)
-    {
-
-      
-            //HATS
-            if (hatTag == "RomenHat")
-            {
-            score += 1;
-            }
-            if (hatTag == "EnglandHat")
-            {
-            score += 10;
-                
-            }
-            if (hatTag == "CowboyHat")
-            {
-            score += 100;
-            }
-            if (hatTag == "DiscoHat")
-            {
-            score += 1000;
-            }
-            if (hatTag == "SuitSunglass")
-            {
-            score += 10000;
-            }
-            //UPPER
-            if (upperTag == "RomenShirt")
-            {
-               
-            }
-            if (upperTag == "EnglandShirt")
-            {
-               
-            }
-            if (upperTag == "CowboyShirt")
-            {
-                
-            }
-            if (upperTag == "DiscoShirt")
-            {
-                
-            }
-            if (upperTag == "SuitShirt")
-            {
-                
-            }
-            //LOWER
-            if (lowerTag == "RomenPants")
-            {
-              
-            }
-            if (lowerTag == "EnglandPant")
-            {
-              
-            }
-            if (lowerTag == "CowboyPants")
-            {
-               
-            }
-            if (lowerTag == "DiscoPants")
-            {
-               
-            }
-            if (lowerTag == "SuitPant")
-            {
-                
-            }
-
-            //BOOT
-
-            if (bootTag == "RomenShoe")
-            {
-                
-            }
-            if (bootTag == "EnglandShoe")
-            {
-                activeEnglandCount++;
-            }
-            if (bootTag == "CowboyShoe")
-            {
-                score += 1f;
-            }
-            if (bootTag == "DiscoShoe")
-            {
-                score += 1.5f;
-            }
-            if (bootTag == "SuitShoe")
-            {
-                score += 2f;
-            }
-
-
-
+        //HATS
+        if (hatTag == "RomenHat")
+        {
+            hatValue = 5f;
+        }
+        if (hatTag == "EnglandHat")
+        {
+            hatValue = 10f;
+        }
+        if (hatTag == "CowboyHat")
+        {
+            hatValue = 15f;
+        }
+        if (hatTag == "DiscoHat")
+        {
+            hatValue = 20f;
+        }
+        if (hatTag == "SuitSunglass")
+        {
+            hatValue = 25f;
+        }
+        //UPPER
+        if (upperTag == "RomenShirt")
+        {
+            chestValue = 5f;
+        }
+        if (upperTag == "EnglandShirt")
+        {
+            chestValue = 10f;
+        }
+        if (upperTag == "CowboyShirt")
+        {
+            chestValue = 15f;
+        }
+        if (upperTag == "DiscoShirt")
+        {
+            chestValue = 20f;
+        }
+        if (upperTag == "SuitShirt")
+        {
+            chestValue = 25f;
+        }
+        //LOWER
+        if (lowerTag == "RomenPants")
+        {
+            lowerValue = 5f;
+        }
+        if (lowerTag == "EnglandPant")
+        {
+            lowerValue = 10f;
+        }
+        if (lowerTag == "CowboyPants")
+        {
+            lowerValue = 15f;
+        }
+        if (lowerTag == "DiscoPants")
+        {
+            lowerValue = 20f;
+        }
+        if (lowerTag == "SuitPant")
+        {
+            lowerValue = 25f;
         }
 
-    }*/
+        //BOOT
+
+        if (bootTag == "RomenShoe")
+        {
+            bootValue = 5f;
+        }
+        if (bootTag == "EnglandShoe")
+        {
+            bootValue = 10f;
+        }
+        if (bootTag == "CowboyShoe")
+        {
+            bootValue = 15f;
+        }
+        if (bootTag == "DiscoShoe")
+        {
+            bootValue = 20f;
+        }
+        if (bootTag == "SuitShoe")
+        {
+            bootValue = 25f;
+        }
+
+
+        return hatValue+chestValue+bootValue+lowerValue;
+
+    }
+
+
+
+
+
+
+
+
 }

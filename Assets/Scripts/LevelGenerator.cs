@@ -38,7 +38,7 @@ public class LevelGenerator : MonoBehaviour
         Instantiate(section,new Vector3(0,0,zPos),Quaternion.identity);
         zPos += 120.15f;
         sectionCount++;
-        if (sectionCount < 0)
+        if (sectionCount < gameManager.levelCount)
         {
             yield return new WaitForSeconds(3);
             creatingSection = false;

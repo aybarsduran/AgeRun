@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     public ParticleSystem wind;
 
+    public int levelCount;
+
     public enum GameState
     {
         Pre,

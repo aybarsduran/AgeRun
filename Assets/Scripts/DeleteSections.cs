@@ -14,7 +14,7 @@ public class DeleteSections : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position +=Vector3.forward*speed*Time.deltaTime;
+        
         
     }
     private void OnCollisionEnter(Collision other)
@@ -22,6 +22,10 @@ public class DeleteSections : MonoBehaviour
         
     
         if (other.gameObject.CompareTag("Section"))
+        {
+            Destroy(other.gameObject);
+        }
+        if (other.gameObject.CompareTag("Obstacle"))
         {
             Destroy(other.gameObject);
         }
