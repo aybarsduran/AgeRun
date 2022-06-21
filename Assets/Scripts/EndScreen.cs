@@ -8,7 +8,12 @@ public class EndScreen : MonoBehaviour
 
     public Transform endPosition;
     public Transform Player;
-    
+    public Transform path;
+    public Transform startPath;
+
+    public Transform Parent;
+
+
     public WearableManager wManager;
 
     public Animator PlayerAnim;
@@ -17,11 +22,25 @@ public class EndScreen : MonoBehaviour
     public Animator secondJuriAnim;
     public Animator thirdJuriAnim;
 
+    public Animator perdeAnim;
 
 
-    public ParticleSystem confetiParticle;
-    public ParticleSystem firework1;
-    public ParticleSystem firework2;
+
+    public endscreenParticles endscreenParticles;
+
+    bool firstJuriAnimated;
+    bool secondJuriAnimated;
+    bool thirdJuriAnimated;
+
+ 
+
+
+
+ 
+    public Transform spotlight1;
+    public Transform spotlight2;
+    public Transform spotlight3;
+
 
 
     float score;
@@ -30,6 +49,13 @@ public class EndScreen : MonoBehaviour
     int thirdScore;
    
     public float distance;
+    public float pathDistance;
+    public float startPathDistance;
+
+    public List<Animator> seyirciler;
+
+    bool pathReached;
+    bool startPathReached;
 
 
     public TextMeshPro firstScoreElement;
@@ -42,34 +68,91 @@ public class EndScreen : MonoBehaviour
         secondScore = 0;
         thirdScore = 0;
 
+        firstJuriAnimated = false;
+
+
+
+
+        pathReached = false;
+        startPathReached = false;
+
+        perdeAnim.enabled = false;
+        foreach(Animator anim in seyirciler)
+        {
+            anim.enabled = false ;
+        }
+
         podiumAnim.enabled = false;
         firstJuriAnim.enabled = false;
         secondJuriAnim.enabled = false;
         thirdJuriAnim.enabled = false;
-
+        endscreenParticles.enabled = false;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         distance = Vector3.Distance(Player.transform.position, endPosition.transform.position);
-       
+        pathDistance = Vector3.Distance(Player.transform.position, path.transform.position);
+        startPathDistance= Vector3.Distance(Player.transform.position, startPath.transform.position);
 
-        if (distance < 10f && distance >= 0.3f)
+       
+        if(startPathDistance<9f && startPathDistance > 0.5f&& startPathReached==false)
         {
-          
-           Player.transform.position = Vector3.MoveTowards(Player.transform.position, endPosition.transform.position, 4 * Time.deltaTime);
+            Player.transform.position = Vector3.MoveTowards(Player.transform.position,startPath.transform.position, 3 * Time.fixedDeltaTime);
+            Parent.transform.LookAt(startPath);
+           
         }
+        if (pathDistance < 18  && pathDistance>0.6f&& pathReached==false&& startPathReached)
+        {
+            Player.transform.position = Vector3.MoveTowards(Player.transform.position, path.transform.position, 3 * Time.fixedDeltaTime);
+            Parent.transform.LookAt(path);
+           
+        }
+        if (pathDistance <= 0.6f && pathDistance > 0.5f)
+        {
+            pathReached = true;
+        }
+        if(startPathDistance<=0.5f && startPathDistance > 0.4f)
+        {
+            startPathReached = true;
+        }
+        if (distance<4f && distance >= 0.3f && pathReached && startPathReached)
+        {
+
+                //Debug.Log("calisiyor");
+                Parent.LookAt(endPosition);
+                Player.transform.position = Vector3.MoveTowards(Player.transform.position, endPosition.transform.position, 3 * Time.fixedDeltaTime);
+
+               
+        }
+        if(distance < 20f && distance>0.3f)
+        {
+            spotlight1.transform.LookAt(Player.transform);
+            spotlight2.transform.LookAt(Player.transform);
+            spotlight3.transform.LookAt(Player.transform);
+        }
+        
         if (distance < 0.3f) {
             PlayerAnim.SetBool("EndScreenPose",true);
-           
             podiumAnim.enabled = true;
-            firstJuriAnim.enabled = true;
-            secondJuriAnim.enabled = true;
-            thirdJuriAnim.enabled = true;
+           
+            if (Parent.transform.rotation.y<22.4f)
+            {
+                StartCoroutine(FirstJuriAnimation());
+                
+                
 
 
-          
+
+
+                endscreenParticles.enabled = true;
+                
+
+            }
+
+
+
 
         }
     }
@@ -78,9 +161,11 @@ public class EndScreen : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             GameManager.Instance.UpdateGameState(GameManager.GameState.End);
-            confetiParticle.Play();
-            firework1.Play();
-            firework2.Play();
+            perdeAnim.enabled = true;
+            foreach (Animator anim in seyirciler)
+            {
+                anim.enabled = true;
+            }
 
             print(CalculateScores(wManager.ReturnActiveHat(), wManager.ReturnActiveUpper(), wManager.ReturnActiveLower(), wManager.ReturnActiveBoot()));
             if (score >= 8)
@@ -221,5 +306,35 @@ public class EndScreen : MonoBehaviour
 
         return score;
 
+    }
+
+
+    IEnumerator FirstJuriAnimation()
+    {
+        
+        if (firstJuriAnimated == false) {
+            thirdJuriAnim.enabled = true;
+        }
+        yield return new WaitForSeconds(1f);
+        firstJuriAnimated = true;
+        StartCoroutine(SecondJuriAnimation());
+    }
+    IEnumerator SecondJuriAnimation()
+    {
+        if (firstJuriAnimated == true)
+        {
+            secondJuriAnim.enabled = true;
+        }
+        yield return new WaitForSeconds(1f);
+        secondJuriAnimated = true;
+        StartCoroutine(ThirdJuriAnimation());
+    }
+    IEnumerator ThirdJuriAnimation()
+    {
+        if (secondJuriAnimated == true)
+        {
+            firstJuriAnim.enabled = true;
+        }
+        yield return new WaitForSeconds(1f);
     }
 }

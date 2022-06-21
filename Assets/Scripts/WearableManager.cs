@@ -15,9 +15,8 @@ public class WearableManager : MonoBehaviour
 
     public BarContoller barContoller;
 
-    Animator anim;
+    public Animator anim;
 
-    public ParticleSystem gateParticle;
     public ParticleSystem hatParticle;
     public ParticleSystem chestParticle;
     public ParticleSystem lowerParticle;
@@ -34,7 +33,7 @@ public class WearableManager : MonoBehaviour
     {
        
       
-       anim=GetComponent<Animator>();
+       
 
         foreach (var hats in Hats)
         {
@@ -68,7 +67,7 @@ public class WearableManager : MonoBehaviour
         if (other.CompareTag("Gate"))
         {
             anim.SetTrigger("GatePassed");
-            gateParticle.Play();
+           
             
            
 
@@ -85,7 +84,7 @@ public class WearableManager : MonoBehaviour
                 {
                     hatParticle.Play();
                     SwitchHat(gateCache.returnHatTag());
-                    barContoller.UITextDetection(gateCache.returnHatTag());
+                    
                     
                 }
 
@@ -94,14 +93,14 @@ public class WearableManager : MonoBehaviour
                 {
                     chestParticle.Play();
                     SwitchUpper(gateCache.returnUpperTag());
-                    barContoller.UITextDetection(gateCache.returnUpperTag());
+                   ;
                 }
 
                 if (gateCache.type == Gate.GateType.LowerBody)
                 {
                     lowerParticle.Play();
                     SwitchLower(gateCache.returnLowerTag());
-                    barContoller.UITextDetection(gateCache.returnLowerTag());
+                    
 
                 }
 
@@ -109,12 +108,12 @@ public class WearableManager : MonoBehaviour
                 {
                     bootParticle.Play();
                     SwitchBoot(gateCache.returnBootTag());
-                    barContoller.UITextDetection(gateCache.returnBootTag());
+                   
                 }
                
             }
             barContoller.UpdateProgressFill(barContoller.CalculateValue(ReturnActiveHat(), ReturnActiveUpper(), ReturnActiveLower(), ReturnActiveBoot()));
-            print(barContoller.CalculateValue(ReturnActiveHat(), ReturnActiveUpper(), ReturnActiveLower(), ReturnActiveBoot()));
+         
 
 
         }
@@ -234,132 +233,7 @@ public class WearableManager : MonoBehaviour
             swerveMovement.KnockBack();
             MMVibrationManager.Haptic(HapticTypes.Warning);
 
-           /* if (ReturnActiveHat() != null)
-            {
-                if (ReturnActiveHat() == "RomenHat")
-                {
-                    SwitchHat("BaseHat");
-                    barContoller.UITextDetection("BaseHat");
-                    barContoller.UpdateProgressFill(5);
-
-                }
-                if (ReturnActiveHat() == "EnglandHat")
-                {
-                    SwitchHat("RomenHat");
-                    barContoller.UITextDetection("RomenHat");
-
-                }
-                if (ReturnActiveHat() == "CowboyHat")
-                {
-                    SwitchHat("EnglandHat");
-                    barContoller.UITextDetection("EnglandHat");
-
-                }
-                if (ReturnActiveHat() == "DiscoHat")
-                {
-                    SwitchHat("CowboyHat");
-                    barContoller.UITextDetection("CowboyHat");
-
-                }
-                if (ReturnActiveHat() == "SuitSunglass")
-                {
-                    SwitchHat("DiscoHat");
-                    barContoller.UITextDetection("DiscoHat");
-
-                }
-            }
-
-            if(ReturnActiveHat() =="BaseHat")
-            {
-                if (ReturnActiveUpper() == "RomenShirt")
-                {
-                    UpperBody[0].SetActive(false);
-                    barContoller.UITextDetection("BaseHat");
-                }
-                if (ReturnActiveUpper() == "EnglandShirt")
-                {
-                    SwitchUpper("RomenShirt");
-                    barContoller.UITextDetection("RomenShirt");
-                }
-                if (ReturnActiveUpper() == "CowboyShirt")
-                {
-                    SwitchUpper("EnglandShirt");
-                    barContoller.UITextDetection("EnglandShirt");
-                }
-                if (ReturnActiveUpper() == "DiscoShirt")
-                {
-                    SwitchUpper("CowboyShirt");
-                    barContoller.UITextDetection("CowboyShirt");
-                }
-                if (ReturnActiveUpper() == "SuitShirt")
-                {
-                    SwitchUpper("DiscoShirt");
-                    barContoller.UITextDetection("DiscoShirt");
-                }
-
-
-            }
-            if(ReturnActiveHat()=="BaseHat" && ReturnActiveUpper() == null)
-            {
-                if (ReturnActiveLower() == "RomenPants")
-                {
-                    SwitchLower("BasePants");
-                    barContoller.UITextDetection("BasePants");
-                }
-                if (ReturnActiveLower() == "EnglandPant")
-                {
-                    SwitchLower("RomenPants");
-                    barContoller.UITextDetection("RomenPants");
-                }
-                if (ReturnActiveLower() == "CowboyPants")
-                {
-                    SwitchLower("EnglandPant");
-                    barContoller.UITextDetection("EnglandPant");
-                }
-                if (ReturnActiveLower() == "DiscoPants")
-                {
-                    SwitchLower("CowboyPants");
-                    barContoller.UITextDetection("CowboyPants");
-                }
-                if (ReturnActiveLower() == "SuitPant")
-                {
-                    SwitchLower("DiscoPants");
-                    barContoller.UITextDetection("DiscoPants");
-                }
-            }
-            if(ReturnActiveUpper()==null && ReturnActiveLower() =="BasePants" && ReturnActiveHat() =="BaseHat")
-            {
-                
-                if (ReturnActiveBoot() == "RomenShoe")
-                {
-                    Boots[0].SetActive(false);
-                    barContoller.UITextDetection("BaseHat");
-                }
-                if (ReturnActiveBoot() == "EnglandShoe")
-                {
-                    SwitchBoot("RomenShoe");
-                    barContoller.UITextDetection("RomenShoe");
-                }
-                if (ReturnActiveBoot() == "CowboyShoe")
-                {
-                    SwitchBoot("EnglandShoe");
-                    barContoller.UITextDetection("EnglandShoe");
-                }
-                if (ReturnActiveBoot() == "DiscoShoe")
-                {
-                    SwitchBoot("CowboyShoe");
-                    barContoller.UITextDetection("CowboyShoe");
-                }
-                if (ReturnActiveBoot() == "SuitShoe")
-                {
-                    SwitchBoot("DiscoShoe");
-                    barContoller.UITextDetection("DiscoShoe");
-                }
-
-            }
-            print(-1 * endscreen.CalculateScores(ReturnActiveHat(), ReturnActiveUpper(), ReturnActiveLower(), ReturnActiveBoot()));
-            barContoller.UpdateProgressFill(-1*endscreen.CalculateScores(ReturnActiveHat(), ReturnActiveUpper(), ReturnActiveLower(), ReturnActiveBoot()));
-           */
+           
         }
     }
 

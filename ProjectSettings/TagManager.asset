@@ -32,6 +32,7 @@ TagManager:
   - Obstacle
   - BaseHat
   - BasePants
+  - CameraTrigger
   layers:
   - Default
   - TransparentFX

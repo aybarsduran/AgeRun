@@ -10,8 +10,14 @@ public class BarContoller : MonoBehaviour
     public TextMeshProUGUI text;
 
     public Animator textAnim;
-   
 
+    float detectionScore;
+
+    float romenCount;
+    float englandCount;
+    float cowboyCount;
+    float discoCount;
+    float suitCount;
 
    
     float hatValue;
@@ -25,52 +31,144 @@ public class BarContoller : MonoBehaviour
         float chestValue = 0;
         float lowerValue = 0;
         float bootValue = 0;
-
+        
         text.text = "Stone Age";
         UpdateProgressFill(0);
+        detectionScore = 1;
         
         
     }
     private void Update()
     {
+
+
        
+
+
+
     }
-    public void UITextDetection(string tag)
+    public void CalculateAge(string hatTag, string upperTag, string lowerTag, string bootTag)
     {
-        if(tag== "BaseHat" || tag=="BasePants")
+        float romenCount = 0;
+        float englandCount = 0;
+        float cowboyCount = 0;
+        float discoCount = 0;
+        float suitCount = 0;
+
+
+        //HATS
+        if (hatTag == "RomenHat")
         {
-            SetUIText("Stone Age");
+            romenCount++;
         }
-        //Rome
-        if (tag == "RomenHat" || tag == "RomenShirt" || tag == "RomenPants" || tag == "RomenShoe")
+        if (hatTag == "EnglandHat")
         {
-            SetUIText("Roman Age");
+            englandCount++;
+
         }
-       
-        //England
-        if (tag == "EnglandHat" || tag == "EnglandShirt" || tag == "EnglandPant" || tag == "EnglandShoe" )
+        if (hatTag == "CowboyHat")
         {
-            SetUIText("1700's");
+            cowboyCount++;
+
         }
-        //Cowboy
-        if (tag == "CowboyHat" || tag == "CowboyShirt" || tag == "CowboyPants" || tag == "CowboyShoe")
+        if (hatTag == "DiscoHat")
         {
-            SetUIText("1800's");
+            discoCount++;
         }
-        // Disco
-        if (tag == "DiscoHat" || tag == "DiscoShirt" || tag == "DiscoPants" || tag == "DiscoShoe")
+        if (hatTag == "SuitSunglass")
         {
-            SetUIText("70's");
+            suitCount++; 
         }
-        //Suit
-        if (tag == "SuitSunglass" || tag == "SuitShirt" || tag == "SuitPant" || tag == "SuitShoe")
+        //UPPER
+        if (upperTag == "RomenShirt")
+        {
+            romenCount++;
+        }
+        if (upperTag == "EnglandShirt")
+        {
+            englandCount++;
+        }
+        if (upperTag == "CowboyShirt")
+        {
+            cowboyCount++;
+        }
+        if (upperTag == "DiscoShirt")
+        {
+            discoCount++;
+        }
+        if (upperTag == "SuitShirt")
+        {
+            suitCount++;
+        }
+        //LOWER
+        if (lowerTag == "RomenPants")
+        {
+            romenCount++;
+        }
+        if (lowerTag == "EnglandPant")
+        {
+            englandCount++;
+        }
+        if (lowerTag == "CowboyPants")
+        {
+            cowboyCount++;
+        }
+        if (lowerTag == "DiscoPants")
+        {
+            discoCount++;
+        }
+        if (lowerTag == "SuitPant")
+        {
+            suitCount++;
+        }
+
+        //BOOT
+
+        if (bootTag == "RomenShoe")
+        {
+            romenCount++;
+        }
+        if (bootTag == "EnglandShoe")
+        {
+            englandCount++;
+        }
+        if (bootTag == "CowboyShoe")
+        {
+            cowboyCount++;
+        }
+        if (bootTag == "DiscoShoe")
+        {
+            discoCount++;
+        }
+        if (bootTag == "SuitShoe")
+        {
+            suitCount++;
+        }
+
+
+        if (suitCount >= 1 && discoCount <= 1 && romenCount <= 1 && englandCount <= 1 && cowboyCount <= 1)
         {
             SetUIText("2020's");
         }
+        if (discoCount >= 2 && suitCount <=1)
+        {
+            if (discoCount >= 2)
+            {
+                SetUIText("70's");
+            }
+        }
+        
+        
+
+      
+
+    
+
+
     }
     public void SetUIText(string agetext)
     {
-        textAnim.SetTrigger("Fade");
+        
         text.text = agetext;
         
 
@@ -83,6 +181,7 @@ public class BarContoller : MonoBehaviour
     //suitler 
     public float CalculateValue(string hatTag, string upperTag, string lowerTag, string bootTag)
     {
+        CalculateAge(hatTag, upperTag, lowerTag, bootTag);
         //HATS
         if (hatTag == "RomenHat")
         {
@@ -102,7 +201,7 @@ public class BarContoller : MonoBehaviour
         }
         if (hatTag == "SuitSunglass")
         {
-            hatValue = 25f;
+            hatValue = 24f;
         }
         //UPPER
         if (upperTag == "RomenShirt")
@@ -123,7 +222,7 @@ public class BarContoller : MonoBehaviour
         }
         if (upperTag == "SuitShirt")
         {
-            chestValue = 25f;
+            chestValue = 24f;
         }
         //LOWER
         if (lowerTag == "RomenPants")
@@ -144,7 +243,7 @@ public class BarContoller : MonoBehaviour
         }
         if (lowerTag == "SuitPant")
         {
-            lowerValue = 25f;
+            lowerValue = 24f;
         }
 
         //BOOT
@@ -167,7 +266,7 @@ public class BarContoller : MonoBehaviour
         }
         if (bootTag == "SuitShoe")
         {
-            bootValue = 25f;
+            bootValue = 24f;
         }
 
 

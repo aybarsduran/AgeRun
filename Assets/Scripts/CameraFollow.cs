@@ -17,8 +17,9 @@ public class CameraFollow : MonoBehaviour
 
 	public GameManager manager;
 
-    Animator anim;
+    
 
+	bool stopCamera;
 
 
 
@@ -26,23 +27,30 @@ public class CameraFollow : MonoBehaviour
 	{
 		instance = this;
 
-
+		stopCamera = false;
 
 
 	}
     private void Start()
     {
-        anim=GetComponent<Animator>();
+        
 
-		anim.enabled = false;
+		
     }
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("CameraTrigger"))
+        {
+			stopCamera = true;
+        }
+    }
 
 
     void FixedUpdate()
 	{
 
-		if (manager.state == GameManager.GameState.Running)
+
+		if (stopCamera==false)
 		{
 			Vector3 desiredPosition = target.position + offset;
 
@@ -50,12 +58,8 @@ public class CameraFollow : MonoBehaviour
 			transform.position = smoothedPosition;
 
 			//transform.rotation = Quaternion.Euler(transformoffset.x, transformoffset.y, transformoffset.z);
-		}
-		if(manager.state == GameManager.GameState.End)
-        {
-			anim.enabled = true;
-        }
 
+		}
 
 	}
 }

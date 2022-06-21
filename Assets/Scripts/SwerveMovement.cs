@@ -6,7 +6,7 @@ public class SwerveMovement : MonoBehaviour
 {
     private SwerweInput swerweInput;
     public float swerveAmount;
-    Animator anim;
+    public Animator anim;
 
     [SerializeField] private float swerveSpeed = 0.5f;
     [SerializeField] private float maxSwerveAmount = 2f;
@@ -15,7 +15,7 @@ public class SwerveMovement : MonoBehaviour
     public float moveSpeed = 5f;
 
     public GameManager manager;
-    Rigidbody rb;
+    Rigidbody rb2;
 
     public float knockBackForce;
     public float knockBackTime;
@@ -26,8 +26,8 @@ public class SwerveMovement : MonoBehaviour
     void Start()
     {
         swerweInput = GetComponent<SwerweInput>();
-        anim = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody>();  
+       
+        rb2 = GetComponent<Rigidbody>();  
     }
 
     void FixedUpdate()
@@ -43,25 +43,22 @@ public class SwerveMovement : MonoBehaviour
         {
             if (knockBackCounter <= 0)
             {
-                
+
                 swerveAmount = swerweInput.MoveFactorX * swerveSpeed * Time.fixedDeltaTime;
                 swerveAmount = Mathf.Clamp(swerveAmount, -maxSwerveAmount, maxSwerveAmount);
-  
-              
+
+
 
                 transform.position += new Vector3(swerveAmount, 0, moveSpeed * Time.fixedDeltaTime);
                 transform.position = new Vector3(Mathf.Clamp(transform.position.x, -edgeDistance, edgeDistance),
                     transform.position.y, transform.position.z);
-              
-               
+                
+                
             }
             else
             {
                 knockBackCounter -= Time.fixedDeltaTime;
-               // Quaternion rotation = new Quaternion();
-               // rotation = Quaternion.AngleAxis(60, Vector3.up);
 
-               // transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, 2 * Time.fixedDeltaTime);
             }
         }
 
@@ -69,9 +66,10 @@ public class SwerveMovement : MonoBehaviour
 
     public void KnockBack()
     {
+        Debug.Log("Calisti");
         obstacleParticle.Play();
         knockBackCounter = knockBackTime;
-        rb.AddForce(new Vector3(0, 0, -1) * knockBackForce);
+        rb2.AddForce(new Vector3(0, 0, -1) * knockBackForce);
         anim.SetTrigger("Idle");
         
     }
