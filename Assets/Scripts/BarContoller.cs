@@ -19,42 +19,50 @@ public class BarContoller : MonoBehaviour
     float discoCount;
     float suitCount;
 
-   
+
     float hatValue;
     float chestValue;
     float lowerValue;
     float bootValue;
     private void Start()
     {
+        romenCount = 0;
+        englandCount = 0;
+        cowboyCount = 0;
+        discoCount = 0;
+        suitCount = 0;
 
-        float hatValue = 0;
-        float chestValue = 0;
-        float lowerValue = 0;
-        float bootValue = 0;
-        
+        hatValue = 0;
+        chestValue = 0;
+        lowerValue = 0;
+        bootValue = 0;
+
         text.text = "Stone Age";
         UpdateProgressFill(0);
         detectionScore = 1;
-        
-        
+
+
     }
     private void Update()
     {
 
-
-       
+        print(romenCount + "Romen");
+        print(englandCount + "en");
+        print(cowboyCount + "cow");
+        print(discoCount + "dis");
+        print(suitCount + "suit");
 
 
 
     }
     public void CalculateAge(string hatTag, string upperTag, string lowerTag, string bootTag)
     {
-        float romenCount = 0;
-        float englandCount = 0;
-        float cowboyCount = 0;
-        float discoCount = 0;
-        float suitCount = 0;
 
+        romenCount = 0;
+        englandCount = 0;
+        cowboyCount = 0;
+        discoCount = 0;
+        suitCount = 0;
 
         //HATS
         if (hatTag == "RomenHat")
@@ -77,7 +85,7 @@ public class BarContoller : MonoBehaviour
         }
         if (hatTag == "SuitSunglass")
         {
-            suitCount++; 
+            suitCount++;
         }
         //UPPER
         if (upperTag == "RomenShirt")
@@ -150,19 +158,76 @@ public class BarContoller : MonoBehaviour
         {
             SetUIText("2020's");
         }
-        if (discoCount >= 2 && suitCount <=1)
+        if (suitCount == 2 && (cowboyCount == 2 || englandCount == 2 || romenCount == 2))
         {
-            if (discoCount >= 2)
-            {
-                SetUIText("70's");
-            }
+            SetUIText("2020's");
         }
-        
-        
+        if (discoCount == 2 && suitCount == 2)
+        {
+            SetUIText("2020's");
+        }
 
       
+        if(discoCount>1 && suitCount<=1 && cowboyCount<=1 && englandCount<=1 && romenCount <= 1)
+        {
+            SetUIText("70's");
+        }
+        if(cowboyCount==2 && discoCount == 2)
+        {
+            SetUIText("70's");
 
-    
+        }
+
+        if(cowboyCount>1 && discoCount<=1 && suitCount<=1 && englandCount<=1&& romenCount <= 1)
+        {
+            SetUIText("Cowboy Era");
+        }
+        if(englandCount==2&& cowboyCount == 2)
+        {
+            SetUIText("Cowboy Era");
+
+        }
+      
+        if(englandCount>1 && discoCount<=1 && suitCount<=1&& cowboyCount<=1 && romenCount <= 1)
+        {
+            SetUIText("1700's");
+        }
+        if(romenCount==2&& englandCount == 2)
+        {
+            SetUIText("1700's");
+        }
+        if(romenCount>1 && discoCount <=1 && suitCount<=1 && cowboyCount<=1 && englandCount <=1)
+        {
+            SetUIText("Roman Age");
+        }
+
+
+
+        if (romenCount >= 1 && discoCount ==0 && suitCount ==0 && cowboyCount ==0&& englandCount ==0)
+        {
+            SetUIText("Roman Age");
+        }
+        if (englandCount >= 1 && discoCount ==0 && suitCount ==0 && cowboyCount==0 && romenCount==0)
+        {
+            SetUIText("1700's");
+        }
+        if (cowboyCount >= 1 && discoCount ==0 && suitCount ==0 && englandCount ==0 && romenCount ==0)
+        {
+            SetUIText("Cowboy Era");
+        }
+        if (discoCount >= 1 && suitCount==0 && cowboyCount ==0 && englandCount ==0 && romenCount ==0)
+        {
+            SetUIText("70's");
+        }
+
+
+
+
+
+
+
+
+
 
 
     }
@@ -197,11 +262,11 @@ public class BarContoller : MonoBehaviour
         }
         if (hatTag == "DiscoHat")
         {
-            hatValue = 20f;
+            hatValue = 18f;
         }
         if (hatTag == "SuitSunglass")
         {
-            hatValue = 24f;
+            hatValue = 22f;
         }
         //UPPER
         if (upperTag == "RomenShirt")
@@ -218,11 +283,11 @@ public class BarContoller : MonoBehaviour
         }
         if (upperTag == "DiscoShirt")
         {
-            chestValue = 20f;
+            chestValue = 18f;
         }
         if (upperTag == "SuitShirt")
         {
-            chestValue = 24f;
+            chestValue = 22f;
         }
         //LOWER
         if (lowerTag == "RomenPants")
@@ -239,11 +304,11 @@ public class BarContoller : MonoBehaviour
         }
         if (lowerTag == "DiscoPants")
         {
-            lowerValue = 20f;
+            lowerValue = 18f;
         }
         if (lowerTag == "SuitPant")
         {
-            lowerValue = 24f;
+            lowerValue = 22f;
         }
 
         //BOOT
@@ -262,11 +327,11 @@ public class BarContoller : MonoBehaviour
         }
         if (bootTag == "DiscoShoe")
         {
-            bootValue = 20f;
+            bootValue = 18f;
         }
         if (bootTag == "SuitShoe")
         {
-            bootValue = 24f;
+            bootValue = 22f;
         }
 
 

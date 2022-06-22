@@ -10,8 +10,9 @@ public class MenuManager : MonoBehaviour
     public GameObject menuTapToPlayElement;
     public GameObject modernityBar;
     public GameObject restartButton;
-   
-   
+    public GameObject nextLevelButton;
+
+
 
 
     void Awake()
@@ -30,6 +31,7 @@ public class MenuManager : MonoBehaviour
         menuTapToPlayElement.SetActive(state == GameManager.GameState.Pre);
         modernityBar.SetActive(state == GameManager.GameState.Running);
         restartButton.SetActive(state == GameManager.GameState.Running|| state==GameManager.GameState.End);
+      
        
     }
     private void Start()
@@ -46,5 +48,10 @@ public class MenuManager : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene("MainScene");
+    }
+
+    public void NextLevel()
+    {
+        throw new NotImplementedException();
     }
 }

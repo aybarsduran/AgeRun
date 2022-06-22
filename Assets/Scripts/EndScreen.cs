@@ -32,6 +32,7 @@ public class EndScreen : MonoBehaviour
     bool secondJuriAnimated;
     bool thirdJuriAnimated;
 
+    public GameObject nextLevelButton;
  
 
 
@@ -311,12 +312,14 @@ public class EndScreen : MonoBehaviour
 
     IEnumerator FirstJuriAnimation()
     {
-        
-        if (firstJuriAnimated == false) {
+
+        if (firstJuriAnimated == false)
+        { 
+            yield return new WaitForSeconds(2f);
             thirdJuriAnim.enabled = true;
+            yield return new WaitForSeconds(1f);
+            firstJuriAnimated = true;
         }
-        yield return new WaitForSeconds(1f);
-        firstJuriAnimated = true;
         StartCoroutine(SecondJuriAnimation());
     }
     IEnumerator SecondJuriAnimation()
@@ -335,6 +338,9 @@ public class EndScreen : MonoBehaviour
         {
             firstJuriAnim.enabled = true;
         }
+        yield return new WaitForSeconds(1.5f);
+        nextLevelButton.SetActive(true);
         yield return new WaitForSeconds(1f);
+        nextLevelButton.GetComponent<Animator>().SetBool("created", true);
     }
 }
