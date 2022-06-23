@@ -13,12 +13,15 @@ public class BarContoller : MonoBehaviour
 
     float detectionScore;
 
+    float temporaryValue;
+
     float romenCount;
     float englandCount;
     float cowboyCount;
     float discoCount;
     float suitCount;
-
+    public Animator arrowUp;
+    public Animator arrowDown;
 
     float hatValue;
     float chestValue;
@@ -42,6 +45,7 @@ public class BarContoller : MonoBehaviour
         detectionScore = 1;
 
 
+
     }
     private void Update()
     {
@@ -52,6 +56,9 @@ public class BarContoller : MonoBehaviour
         print(discoCount + "dis");
         print(suitCount + "suit");
 
+
+        temporaryValue = fillImage.fillAmount*100;
+        print(temporaryValue);
 
 
     }
@@ -154,7 +161,7 @@ public class BarContoller : MonoBehaviour
         }
 
 
-        if (suitCount >= 1 && discoCount <= 1 && romenCount <= 1 && englandCount <= 1 && cowboyCount <= 1)
+        if (suitCount > 1 && discoCount <= 1 && romenCount <= 1 && englandCount <= 1 && cowboyCount <= 1)
         {
             SetUIText("2020's");
         }
@@ -166,9 +173,46 @@ public class BarContoller : MonoBehaviour
         {
             SetUIText("2020's");
         }
+        
+       
+       
+        if (suitCount == 1 && cowboyCount <= 1 && discoCount<=1  && romenCount <= 1 && englandCount <= 1)
+        {
+            SetUIText("2020's");
 
-      
-        if(discoCount>1 && suitCount<=1 && cowboyCount<=1 && englandCount<=1 && romenCount <= 1)
+
+        }
+        if (discoCount == 1 && cowboyCount <= 1 && suitCount <= 1 && romenCount <= 1 && englandCount <= 1)
+        {
+            SetUIText("70's");
+
+
+        }
+
+        if (cowboyCount == 1 && discoCount <= 1 && suitCount <= 1 && romenCount <= 1 && englandCount <= 1)
+        {
+            SetUIText("Cowboy Era");
+
+
+        }
+        if (englandCount == 1 && discoCount <= 1 && suitCount <= 1 && romenCount <= 1 && cowboyCount <= 1)
+        {
+            SetUIText("1700's");
+
+
+        }
+        if (romenCount == 1 && discoCount <= 1 && suitCount <= 1 && englandCount <= 1 && cowboyCount <= 1)
+        {
+            SetUIText("Roman Age");
+
+
+        }
+
+
+
+
+
+        if (discoCount>1 && suitCount<=1 && cowboyCount<=1 && englandCount<=1 && romenCount <= 1)
         {
             SetUIText("70's");
         }
@@ -241,7 +285,17 @@ public class BarContoller : MonoBehaviour
     }
     public void UpdateProgressFill(float value)
     {
+
+        if (temporaryValue < value)
+        {
+            arrowUp.SetTrigger("arrowup");
+        }
+        if (temporaryValue > value)
+        {
+            arrowDown.SetTrigger("arrowdown");
+        }
         fillImage.fillAmount = value/100;
+
     }
     //suitler 
     public float CalculateValue(string hatTag, string upperTag, string lowerTag, string bootTag)
