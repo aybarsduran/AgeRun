@@ -58,7 +58,7 @@ public class BarContoller : MonoBehaviour
 
 
         temporaryValue = fillImage.fillAmount*100;
-        print(temporaryValue);
+       
 
 
     }
@@ -188,6 +188,10 @@ public class BarContoller : MonoBehaviour
 
 
         }
+        if (discoCount==2 && (cowboyCount == 2 || englandCount == 2 || romenCount == 2))
+        {
+            SetUIText("70's");
+        }
 
         if (cowboyCount == 1 && discoCount <= 1 && suitCount <= 1 && romenCount <= 1 && englandCount <= 1)
         {
@@ -216,9 +220,9 @@ public class BarContoller : MonoBehaviour
         {
             SetUIText("70's");
         }
-        if(cowboyCount==2 && discoCount == 2)
+        if(cowboyCount==2 && ( englandCount == 2 || romenCount == 2))
         {
-            SetUIText("70's");
+            SetUIText("Cowboy Era");
 
         }
 
@@ -226,9 +230,9 @@ public class BarContoller : MonoBehaviour
         {
             SetUIText("Cowboy Era");
         }
-        if(englandCount==2&& cowboyCount == 2)
+        if(englandCount==2 && romenCount==2)
         {
-            SetUIText("Cowboy Era");
+            SetUIText("1700's");
 
         }
       
@@ -240,6 +244,7 @@ public class BarContoller : MonoBehaviour
         {
             SetUIText("1700's");
         }
+      
         if(romenCount>1 && discoCount <=1 && suitCount<=1 && cowboyCount<=1 && englandCount <=1)
         {
             SetUIText("Roman Age");

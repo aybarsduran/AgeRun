@@ -7,7 +7,7 @@ public class LevelGenerator : MonoBehaviour
     public GameObject section;
     public GameObject endSection;
 
-    public int levelCount;
+   
 
     public float zPos;
     public bool creatingSection = false;
@@ -18,12 +18,14 @@ public class LevelGenerator : MonoBehaviour
     private void Start()
     {
         sectionCount = 0;
+      
     }
 
 
     // Update is called once per frame
     void Update()
     {
+
         if (!creatingSection && gameManager.state==GameManager.GameState.Running)
         {
             creatingSection=true;
