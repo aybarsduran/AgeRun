@@ -36,10 +36,10 @@ public class LevelGenerator : MonoBehaviour
     }
     public IEnumerator CreateSection()
     {
-        
-        Instantiate(section,new Vector3(0,0,zPos),Quaternion.identity);
+        if (gameManager.levelCount > 0) { 
+        Instantiate(section, new Vector3(0, 0, zPos), Quaternion.identity);
         zPos += 120.15f;
-        sectionCount++;
+        sectionCount++; }
         if (sectionCount < gameManager.levelCount)
         {
             yield return new WaitForSeconds(3);

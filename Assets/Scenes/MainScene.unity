@@ -5768,7 +5768,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 639741459}
   starterEndSection: {fileID: 599006973}
-  levelCount: 0
+  levelCount: 1
   state: 0
 --- !u!4 &1215754285 stripped
 Transform:
