@@ -6,6 +6,7 @@ public class LevelGenerator : MonoBehaviour
 {
     public GameObject section;
     public GameObject endSection;
+    public GameObject secondSection;
 
    
 
@@ -36,8 +37,14 @@ public class LevelGenerator : MonoBehaviour
     }
     public IEnumerator CreateSection()
     {
-        if (gameManager.levelCount > 0) { 
-        Instantiate(section, new Vector3(0, 0, zPos), Quaternion.identity);
+        if (gameManager.levelCount > 0) {
+            Instantiate(section, new Vector3(0, 0, zPos), Quaternion.identity);
+            if (secondSection != null)
+            {
+                Instantiate(secondSection, new Vector3(0, 0, zPos*2), Quaternion.identity);
+            }
+        
+            
         zPos += 120.15f;
         sectionCount++; }
         if (sectionCount < gameManager.levelCount)
@@ -47,8 +54,12 @@ public class LevelGenerator : MonoBehaviour
         }
         else
         {
-            Instantiate(endSection,new Vector3(0,0,zPos-57),Quaternion.identity);
-            
+            if (PlayerPrefs.GetInt("level") == 4)
+            {
+                Instantiate(endSection, new Vector3(0, 0, zPos +63), Quaternion.identity);
+            }
+            else
+                Instantiate(endSection, new Vector3(0, 0, zPos - 57), Quaternion.identity);
         }
 
     }

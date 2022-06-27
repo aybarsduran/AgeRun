@@ -11,8 +11,7 @@ public class BarContoller : MonoBehaviour
 
     public Animator textAnim;
 
-    float detectionScore;
-
+   
     float temporaryValue;
 
     float romenCount;
@@ -42,7 +41,7 @@ public class BarContoller : MonoBehaviour
 
         text.text = "Stone Age";
         UpdateProgressFill(0);
-        detectionScore = 1;
+      
 
 
 
@@ -50,12 +49,7 @@ public class BarContoller : MonoBehaviour
     private void Update()
     {
 
-        print(romenCount + "Romen");
-        print(englandCount + "en");
-        print(cowboyCount + "cow");
-        print(discoCount + "dis");
-        print(suitCount + "suit");
-
+      
 
         temporaryValue = fillImage.fillAmount*100;
        

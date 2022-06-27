@@ -10,7 +10,9 @@ public class MenuManager : MonoBehaviour
     public GameObject menuTapToPlayElement;
     public GameObject modernityBar;
     public GameObject restartButton;
-    public GameObject nextLevelButton;
+
+
+    int activeScene;
 
 
 
@@ -47,11 +49,9 @@ public class MenuManager : MonoBehaviour
     }
     public void RestartGame()
     {
-        SceneManager.LoadScene("MainScene");
+       activeScene= SceneManager.GetActiveScene().buildIndex;
+       SceneManager.LoadScene(activeScene);
     }
 
-    public void NextLevel()
-    {
-        throw new NotImplementedException();
-    }
+   
 }

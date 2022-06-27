@@ -8,7 +8,19 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Elephant/elephant_scene.unity
     guid: 47a686e3b898646ae802a7832a649176
-  - enabled: 0
-    path: Assets/Scenes/MainScene.unity
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: 41984411153f0634d992a413395f9d1f
+  - enabled: 1
+    path: Assets/Scenes/Level01.unity
+    guid: 6876ebdb62ce9f642ab78b87025e94a3
+  - enabled: 1
+    path: Assets/Scenes/Level02.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Level03.unity
+    guid: 1c0177919d00f3b4ab9ebd112ecdb29e
+  - enabled: 1
+    path: Assets/Scenes/Level04.unity
+    guid: 8a8ea056f213592489386a8288c2d3b5
   m_configObjects: {}
