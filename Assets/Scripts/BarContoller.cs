@@ -8,9 +8,9 @@ public class BarContoller : MonoBehaviour
 {
     public Image fillImage;
     public TextMeshProUGUI text;
+   
 
-    public Animator textAnim;
-
+    
    
     float temporaryValue;
 

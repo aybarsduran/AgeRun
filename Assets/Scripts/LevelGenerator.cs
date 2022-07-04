@@ -54,7 +54,7 @@ public class LevelGenerator : MonoBehaviour
         }
         else
         {
-            if (PlayerPrefs.GetInt("level") == 4)
+            if (PlayerPrefs.GetInt("level") == 5)
             {
                 Instantiate(endSection, new Vector3(0, 0, zPos +63), Quaternion.identity);
             }

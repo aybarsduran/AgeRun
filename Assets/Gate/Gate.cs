@@ -13,13 +13,15 @@ public class Gate : MonoBehaviour
         Hats,
         UpperBody,
         LowerBody,
-        Boots
+        Boots,
+      
+          
     }
     public GameObject[] hatImages;
     public GameObject[] upperImages;
     public GameObject[] lowerImages;
     public GameObject[] bootImages;
-
+   
     
     
     public GameObject gateEffect;
